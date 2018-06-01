@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container1 form mid" style="float:left;width:25%;">
+    <h1>Admin Login</h1>
+    <form name="loginForm" method="post" action="/user/login">
+        Login: <br /><input id="txtLogin" name="txtLogin" value="@ViewBag.txtLogin" /> <br><br />
+        Password: <br /><input id="txtPassword" name="txtPassword" type="password" /> <br><br />
+        <span id="errorSpan" style="color:red">@ViewBag.msg</span><br />
+        <input type="submit" name="btnLogin" id="btnLogin" value="Login" /><br />
+        <input class="cancelbtn" type="reset" value="cancel" id="btnReset"/>
+    </form>
+</div>

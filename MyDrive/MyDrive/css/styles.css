@@ -1,0 +1,164 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form {
+    margin: 0 auto; 
+	width:550px;
+    width: 50%;
+    border: 3px solid #f1f1f1;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type="button"],[type="submit"]{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.button{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.button:hover{
+    opacity: 0.8;
+}
+
+.mid
+{
+    margin:20px 500px;
+}
+
+input[type="button"]:hover {
+    opacity: 0.8;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+input[type="reset"]:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    background-color: #f44336;
+}
+
+.container {
+    padding: 16px;
+    background:white;
+}
+
+.bodyContainer {
+    background-color: #ccffcc;
+}
+.container1 {
+    padding: 16px;
+}
+
+h1,h3,h2{
+    background-color:white ;
+    color:#4CAF50;
+}
+
+h3{
+    margin-left: 610px;
+}
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4CAF50;
+}
+
+.menu li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: skyblue;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+
+
+#myTable {
+    float:left;
+    margin:50px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+#myTable td, #myTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#myTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#myTable tr:hover {background-color: #ddd;}
+
+#myTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
