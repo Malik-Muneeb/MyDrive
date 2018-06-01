@@ -6,25 +6,14 @@ using System.Web.Mvc;
 
 namespace MyDrive.Controllers
 {
-    public class HomeController : Controller
+    public class homeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult home()
         {
-            return View();
+            if(Session["user"]!=null)
+                return View();
+            return Redirect("~/user/Login");
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

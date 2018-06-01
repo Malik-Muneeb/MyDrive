@@ -20,13 +20,22 @@ namespace MyDrive.Controllers
         {
             userBA userObjBA = new userBA();
             if (userObjBA.validateUser(userObj))
-                return Redirect("/user/home");
+            {
+                Session["user"] = userObj.txtLogin;
+                return Redirect("/home/home");
+            }
             else
             {
                 ViewBag.txtLogin = userObj.txtLogin;
                 ViewBag.msg = "Incorrect Info";
             }
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session["user"] = null;
+            return View("Login");
         }
 	}
 }

@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="../../css/styles.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            @*<li> <a href="/Home/NormalUser">Home</a> </li>
+            <li> <a href="/Product/ShowAll">Show All</a> </li>
+            <li> <a href="/User/Signup?userId=@MyDrive.Security.SessionManager.User.UserID">Edit Profile</a> </li>
+            <li> <a href="/User/ChangePassword">Update Password</a> </li>*@
+            <li> <a href="/User/Logout">Logout</a> </li>
+        </ul>
+    </div>
+    <div id="overlay" class="overlay">
+    </div>
+    <h1 class="mid"> Welcome @Session["user"]</h1>
+    <span style="color:red">@TempData["Message"]</span><br />
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
