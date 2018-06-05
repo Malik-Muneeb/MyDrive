@@ -10,15 +10,15 @@
     <link href="../../css/styles.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+   
 </head>
 <body>
     <div class="menu">
         <ul>
-            @*<li> <a href="/Home/NormalUser">Home</a> </li>
-            <li> <a href="/Product/ShowAll">Show All</a> </li>
-            <li> <a href="/User/Signup?userId=@MyDrive.Security.SessionManager.User.UserID">Edit Profile</a> </li>
-            <li> <a href="/User/ChangePassword">Update Password</a> </li>*@
+            <li> <a href="/Home/home">Home</a> </li>
+            <li> <a id="newFolder">New Folder</a> </li>
+            @*<li> <a href="/User/Signup?userId=@MyDrive.Security.SessionManager.User.UserID">Edit Profile</a> </li>
+             <li> <a href="/User/ChangePassword">Update Password</a> </li>*@
             <li> <a href="/User/Logout">Logout</a> </li>
         </ul>
     </div>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Entities;
 using System.Data.SqlClient;
 
-namespace DAL
+namespace BAL
 {
     public class userDAO
     {

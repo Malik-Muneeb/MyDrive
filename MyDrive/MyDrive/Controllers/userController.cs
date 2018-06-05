@@ -22,6 +22,7 @@ namespace MyDrive.Controllers
             if (userObjBA.validateUser(userObj))
             {
                 Session["user"] = userObj.txtLogin;
+                Session["userId"] = userObj.txtId;
                 return Redirect("/home/home");
             }
             else

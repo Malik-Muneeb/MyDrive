@@ -15,5 +15,10 @@ namespace MyDrive.Controllers
             return Redirect("~/user/Login");
         }
 
+        public ActionResult newFolder()
+        {
+            return View("home");
+        }
+
     }
 }

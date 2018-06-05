@@ -4,4 +4,55 @@
     Layout = "~/Views/Shared/_ProductLayout.cshtml";
 }
 
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script>
+
+    $(document).ready(main);
+
+    function main() {
+        $("#newFolder").click(function () {
+            var x;
+            var name = prompt("Please enter folder name", "abc");
+            if (name != null && name != "") {
+                x = "You Entered " + name;
+                alert(x);
+                var userId= $("#userId").val();
+                var dataToSend = {
+                    "name": name,
+                    "parentFolderId": 0,
+                    "createdBy": userId,
+                    };
+
+                var setting = {
+                    type: "post",
+                    dataType: "json",
+                    url: "http://localhost:11182/home/addNewFolder",
+                    data: dataToSend,
+                    success: function (result) {
+                        alert("folder added successfully "+result);
+                    },
+                    error: function () {
+                        alert("some Error Occured while adding folder.");
+                    }
+                };
+                $.ajax(setting);
+            }
+            else
+                alert("You have to enter a folder name");
+        });
+
+        //loadRoles();
+        //loadPermissions();
+        //loadRolePerTable();
+        //$("#btnSave").click(saveRolePer);
+        //$("#btnClear").click(function () {
+        //    $("#cmbRole").val(0);
+        //    $("#cmbPer").val(0);
+        //});
+    }
+</script>
+
+<body>
+    <input type="hidden" id="userId" value="@Session["userId"]"/>
+</body>
 
