@@ -18,10 +18,10 @@ namespace BAL
             return false;
         }
 
-        public List<folderDTO> getAllFolders(int createdBy)
+        public List<folderDTO> getAllFolders(folderDTO obj)
         {
             folderDAO folderObjDAO = new folderDAO();
-            return folderObjDAO.getAllFolders(createdBy);
+            return folderObjDAO.getAllFolders(obj);
         }
     }
 }

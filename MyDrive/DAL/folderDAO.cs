@@ -40,13 +40,13 @@ namespace BAL
             }
         }
 
-        public List<folderDTO> getAllFolders(int createdBy)
+        public List<folderDTO> getAllFolders(folderDTO obj)
         {
             String connString = @"Data Source=.\SQLEXPRESS2012; Initial Catalog=Assignment8; Integrated Security=True; Persist Security Info=True;";
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                String sqlQuery = "Select * from dbo.folder where createdBy='"+createdBy+"'";
+                String sqlQuery = "Select * from dbo.folder where createdBy='"+obj.createdBy+"' and parentfolderid='"+obj.parentFolderId+"'";
                 SqlCommand command = new SqlCommand(sqlQuery, conn);
                 SqlDataReader reader = command.ExecuteReader();
                 List<folderDTO> folderList = new List<folderDTO>();

@@ -16,26 +16,27 @@ namespace Web_API.ApiControllers
     public class folderDataController : ApiController
     {
         [HttpPost]
-        public void addNewFolder()
+        public bool addNewFolder()
         {
             folderDTO obj = new folderDTO();
             obj.name = System.Web.HttpContext.Current.Request["name"];
             obj.parentFolderId = Convert.ToInt32(System.Web.HttpContext.Current.Request["parentFolderId"]);
             obj.createdBy = Convert.ToInt32(System.Web.HttpContext.Current.Request["createdBy"]);
             folderBA folderBAObj = new folderBA();
-            folderBAObj.saveFolder(obj);
-            //if (folderBAObj.saveFolder(obj))
-            //return true;
-            //return false;
+            //folderBAObj.saveFolder(obj);
+            if (folderBAObj.saveFolder(obj))
+                return true;
+            return false;
         }
 
         [HttpPost]
         public List<folderDTO> loadFolders()
         {
-            int createdBy = 0;
-            createdBy = Convert.ToInt32(System.Web.HttpContext.Current.Request["createdBy"]);
+            folderDTO obj = new folderDTO();
+            obj.createdBy = Convert.ToInt32(System.Web.HttpContext.Current.Request["createdBy"]);
+            obj.parentFolderId = Convert.ToInt32(System.Web.HttpContext.Current.Request["parentFolderId"]);
             folderBA folderBAObj = new folderBA();
-            List<folderDTO> folderList = folderBAObj.getAllFolders(createdBy);
+            List<folderDTO> folderList = folderBAObj.getAllFolders(obj);
             return folderList;
         }
 	}

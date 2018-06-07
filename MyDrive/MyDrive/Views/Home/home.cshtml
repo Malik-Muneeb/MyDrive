@@ -13,11 +13,23 @@
         loadFolders();
     }
 
+    function openFolder(divObj) {
+        var id = divObj.id;
+        id = id.replace("folder", "");
+        var parentFolderId = $("#parentFolderId").val(id);
+        $('#foldersDiv *').remove();
+        loadFolders();
+
+
+    }
+
     function loadFolders() {
         var userId = $("#userId").val();
-        alert(userId);
+        var parentFolderId = $("#parentFolderId").val();
+        //alert(userId);
         var dataToSend = {
-            "createdBy": userId
+            "createdBy": userId,
+            "parentFolderId": parentFolderId
         };
         var setting = {
             type: "POST",
@@ -25,11 +37,11 @@
             url: basePath + "api/folderData/loadFolders",
             data: dataToSend,
             success: function (result) {
-                alert('folders Loaded');
+                //alert('folders Loaded');
                 console.log(result);
                 var foldersDiv = $("#foldersDiv");
                 $(result).each(function () {
-                    foldersDiv.append("<div class='folder'>" + $(this).attr("name") + "</div> <br>");
+                    foldersDiv.append("<div id=folder"+$(this).attr("id")+" class='folder' ondblclick='openFolder(this);'>" + $(this).attr("name") + "</div> <br>");
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -47,11 +59,12 @@
         var name = prompt("Please enter folder name", "abc");
         if (name != null && name != "") {
             x = "You Entered " + name;
-            alert(x);
+            //alert(x);
             var userId = $("#userId").val();
+            var parentFolderId = $("#parentFolderId").val();
             var dataToSend = {
                 "name": name,
-                "parentFolderId": 0,
+                "parentFolderId": parentFolderId,
                 "createdBy": userId,
             };
             var setting = {
@@ -60,7 +73,10 @@
                 url: basePath + "api/folderData/addNewFolder",
                 data: dataToSend,
                 success: function (result) {
-                    alert("folder added successfully " + result);
+                    //alert("folder added successfully " + result);
+                    //location.reload();
+                    $('#foldersDiv *').remove();
+                    loadFolders();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("error while adding new folder");
@@ -77,6 +93,7 @@
 
 <body>
     <input type="hidden" id="userId" value="@Session["userId"]" />
+    <input type="hidden" id="parentFolderId" value="0" />
     <div id="foldersDiv"></div>
 </body>
 
