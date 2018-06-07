@@ -10,7 +10,7 @@ namespace BAL
 {
     public class userDAO
     {
-        public bool validateUser(userDTO userObj)
+        public int validateUser(userDTO userObj)
         {
             String connString = @"Data Source=.\SQLEXPRESS2012; Initial Catalog=Assignment8; Integrated Security=True; Persist Security Info=True;";
             using (SqlConnection conn = new SqlConnection(connString))
@@ -26,9 +26,13 @@ namespace BAL
                     param.Value = DBNull.Value;
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
-                    return true;
+                {
+                    reader.Read();
+                    int id = reader.GetInt32(reader.GetOrdinal("id"));
+                    return id;
+                }
             }
-            return false;
+            return 0;
         }
     }
 }

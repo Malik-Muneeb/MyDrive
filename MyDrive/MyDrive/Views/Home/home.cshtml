@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "home";
     Layout = "~/Views/Shared/_ProductLayout.cshtml";
 }
@@ -8,51 +7,76 @@
 <script>
 
     $(document).ready(main);
-
+    var basePath = "http://localhost:11182/";
     function main() {
-        $("#newFolder").click(function () {
-            var x;
-            var name = prompt("Please enter folder name", "abc");
-            if (name != null && name != "") {
-                x = "You Entered " + name;
-                alert(x);
-                var userId= $("#userId").val();
-                var dataToSend = {
-                    "name": name,
-                    "parentFolderId": 0,
-                    "createdBy": userId,
-                    };
+        $("#newFolder").click(saveFolder);
+        loadFolders();
+    }
 
-                var setting = {
-                    type: "post",
-                    dataType: "json",
-                    url: "http://localhost:11182/home/addNewFolder",
-                    data: dataToSend,
-                    success: function (result) {
-                        alert("folder added successfully "+result);
-                    },
-                    error: function () {
-                        alert("some Error Occured while adding folder.");
-                    }
-                };
-                $.ajax(setting);
+    function loadFolders() {
+        var userId = $("#userId").val();
+        alert(userId);
+        var dataToSend = {
+            "createdBy": userId
+        };
+        var setting = {
+            type: "POST",
+            dataType: "JSON",
+            url: basePath + "api/folderData/loadFolders",
+            data: dataToSend,
+            success: function (result) {
+                alert('folders Loaded');
+                console.log(result);
+                var foldersDiv = $("#foldersDiv");
+                $(result).each(function () {
+                    foldersDiv.append("<div class='folder'>" + $(this).attr("name") + "</div> <br>");
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("error while loading folders");
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
-            else
-                alert("You have to enter a folder name");
-        });
+        }
+        $.ajax(setting);
+        return false;
+    }
 
-        //loadRoles();
-        //loadPermissions();
-        //loadRolePerTable();
-        //$("#btnSave").click(saveRolePer);
-        //$("#btnClear").click(function () {
-        //    $("#cmbRole").val(0);
-        //    $("#cmbPer").val(0);
-        //});
+    function saveFolder() {
+        var x;
+        var name = prompt("Please enter folder name", "abc");
+        if (name != null && name != "") {
+            x = "You Entered " + name;
+            alert(x);
+            var userId = $("#userId").val();
+            var dataToSend = {
+                "name": name,
+                "parentFolderId": 0,
+                "createdBy": userId,
+            };
+            var setting = {
+                type: "POST",
+                dataType: "JSON",
+                url: basePath + "api/folderData/addNewFolder",
+                data: dataToSend,
+                success: function (result) {
+                    alert("folder added successfully " + result);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("error while adding new folder");
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            }
+            $.ajax(setting);
+        }
+        else
+            alert("You have to enter a folder name");
     }
 </script>
 
 <body>
-    <input type="hidden" id="userId" value="@Session["userId"]"/>
+    <input type="hidden" id="userId" value="@Session["userId"]" />
+    <div id="foldersDiv"></div>
 </body>
 

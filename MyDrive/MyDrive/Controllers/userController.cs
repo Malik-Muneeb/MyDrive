@@ -19,10 +19,11 @@ namespace MyDrive.Controllers
         public ActionResult Login(userDTO userObj)
         {
             userBA userObjBA = new userBA();
-            if (userObjBA.validateUser(userObj))
+            int id=userObjBA.validateUser(userObj);
+            if (id!=0)
             {
                 Session["user"] = userObj.txtLogin;
-                Session["userId"] = userObj.txtId;
+                Session["userId"] = id;
                 return Redirect("/home/home");
             }
             else

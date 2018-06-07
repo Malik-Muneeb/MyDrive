@@ -162,3 +162,37 @@ li a:hover:not(.active) {
     background-color: #4CAF50;
     color: white;
 }
+
+.folder {
+    width: 100px;
+    height: 50px;
+    padding-top: 50px;
+    border: solid 1px #000;
+    position: relative;
+    text-align: center;
+}
+
+.folder:after {
+    content: " ";
+    width: 50px;
+    height: 35px;
+    border-radius: 0 5px 5px 5px;
+    box-shadow: 1px 1px 0 1px #CCCCCC;
+    display: block;
+    background-color: #708090;
+    position: absolute;
+    top: 15px;
+    left: 25px;    
+}
+
+.folder:before {
+    content: " ";
+    width: 25px;
+    height: 5px;
+    border-radius: 5px 15px 0 0;
+    display: block;
+    background-color: #708090;
+    position: absolute;
+    top: 10px;
+    left: 25px;
+}
