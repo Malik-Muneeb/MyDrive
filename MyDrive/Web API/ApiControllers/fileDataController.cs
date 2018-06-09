@@ -53,5 +53,26 @@ namespace Web_API.ApiControllers
             }
             return false;
         }
+
+        [HttpPost]
+        public List<fileDTO> loadFiles()
+        {
+            fileDTO obj = new fileDTO();
+            obj.createdBy = Convert.ToInt32(System.Web.HttpContext.Current.Request["createdBy"]);
+            obj.parentFolderId = Convert.ToInt32(System.Web.HttpContext.Current.Request["parentFolderId"]);
+            fileBA fileBAObj = new fileBA();
+            List<fileDTO> fileList = fileBAObj.getAllFiles(obj);
+            return fileList;
+        }
+
+        [HttpPost]
+        public bool deleteFile()
+        {
+            int id = Convert.ToInt32(System.Web.HttpContext.Current.Request["id"]);
+            fileBA fileBAObj = new fileBA();
+            if (fileBAObj.deleteFile(id))
+                return true;
+            return false;
+        }
     }
 }

@@ -23,6 +23,14 @@ namespace BAL
             folderDAO folderObjDAO = new folderDAO();
             return folderObjDAO.getAllFolders(obj);
         }
+
+        public bool deleteFolder(int id)
+        {
+            folderDAO folderObjDAO = new folderDAO();
+            if (folderObjDAO.deleteFolder(id))
+                return true;
+            return false;
+        }
     }
 }
 

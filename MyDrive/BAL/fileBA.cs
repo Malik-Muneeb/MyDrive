@@ -16,5 +16,19 @@ namespace BAL
                 return true;
             return false;
         }
+
+        public List<fileDTO> getAllFiles(fileDTO obj)
+        {
+            fileDAO fileObjDAO = new fileDAO();
+            return fileObjDAO.getAllfiles(obj);
+        }
+
+        public bool deleteFile(int id)
+        {
+            fileDAO fileObjDAO = new fileDAO();
+            if (fileObjDAO.deleteFile(id))
+                return true;
+            return false;
+        }
     }
 }

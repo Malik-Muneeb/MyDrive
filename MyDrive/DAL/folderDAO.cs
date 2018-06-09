@@ -17,22 +17,10 @@ namespace BAL
             {
                 conn.Open();
                 String sqlQuery = "";
-                if (obj.id > 0)
-                {
-//                    sqlQuery = String.Format(@"Update dbo.folders Set name='{0}',login='{1}', password='{2}',email='{3}',
-//                              gender='{4}',address='{5}',age='{6}',nic='{7}',dob='{8}',iscricket='{9}',hockey='{10}',
-//                              chess='{11}',imagename='{12}' Where folderid='{13}'", obj.txtName, obj.txtLogin, obj.txtPassword,
-//                               obj.txtEmail, obj.cmbGender, obj.txtAddress, obj.txtAge, obj.txtCnic, obj.dateDob, obj.chkCricket,
-//                               obj.chkHockey, obj.chkChess, obj.folderImage, obj.txtId);
-                }
-                else
-                {
-                    sqlQuery = String.Format(@"INSERT INTO dbo.folder(name, parentfolderid,
+                sqlQuery = String.Format(@"INSERT INTO dbo.folder(name, parentfolderid,
                 createdby,createdon,isactive) 
                 VALUES('{0}','{1}','{2}','{3}','{4}')", obj.name, obj.parentFolderId, obj.createdBy, DateTime.Now,1);
-                }
-
-
+            
                 SqlCommand command = new SqlCommand(sqlQuery, conn);
                 int rowAffected = command.ExecuteNonQuery();
                 Console.WriteLine("{0} Row Affected", rowAffected);
@@ -46,7 +34,7 @@ namespace BAL
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                String sqlQuery = "Select * from dbo.folder where createdBy='"+obj.createdBy+"' and parentfolderid='"+obj.parentFolderId+"'";
+                String sqlQuery = "Select * from dbo.folder where createdBy='"+obj.createdBy+"' and parentfolderid='"+obj.parentFolderId+"' and isactive='1'";
                 SqlCommand command = new SqlCommand(sqlQuery, conn);
                 SqlDataReader reader = command.ExecuteReader();
                 List<folderDTO> folderList = new List<folderDTO>();
@@ -60,6 +48,22 @@ namespace BAL
                     folderList.Add(folderObj);
                 }
                 return folderList;
+            }
+        }
+
+        public bool deleteFolder(int id)
+        {
+            String connString = @"Data Source=.\SQLEXPRESS2012; Initial Catalog=Assignment8; Integrated Security=True; Persist Security Info=True;";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                String sqlQuery = "";
+                sqlQuery = String.Format("Update dbo.folder Set isactive=0 Where id={0}", id);
+
+                SqlCommand command = new SqlCommand(sqlQuery, conn);
+                int rowAffected = command.ExecuteNonQuery();
+                Console.WriteLine("{0} Row Affected", rowAffected);
+                return true;
             }
         }
     }

@@ -39,5 +39,15 @@ namespace Web_API.ApiControllers
             List<folderDTO> folderList = folderBAObj.getAllFolders(obj);
             return folderList;
         }
+
+        [HttpPost]
+        public bool deleteFolder()
+        {
+            int id = Convert.ToInt32(System.Web.HttpContext.Current.Request["id"]);
+            folderBA folderBAObj = new folderBA();
+            if (folderBAObj.deleteFolder(id))
+                return true;
+            return false;
+        }
 	}
 }
