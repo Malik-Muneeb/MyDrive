@@ -120,7 +120,7 @@ select {
     float: left;
 }
 
-li a {
+li a,li label {
     display: block;
     color: white;
     text-align: center;
@@ -130,6 +130,14 @@ li a {
 
 li a:hover:not(.active) {
     background-color: skyblue;
+}
+
+li label:hover:not(.active) {
+    background-color: skyblue;
+}
+
+a:link {
+    text-decoration: none;
 }
 
 .active {
@@ -170,6 +178,7 @@ li a:hover:not(.active) {
     border: solid 1px #000;
     position: relative;
     text-align: center;
+    cursor:pointer;
 }
 
 .folder:after {
@@ -183,6 +192,7 @@ li a:hover:not(.active) {
     position: absolute;
     top: 15px;
     left: 25px;    
+    cursor:pointer;
 }
 
 .folder:before {
@@ -195,4 +205,54 @@ li a:hover:not(.active) {
     position: absolute;
     top: 10px;
     left: 25px;
+    cursor:pointer;
+}
+
+.serviceBox{
+    margin-right:4%;
+     margin-left:4%;
+    margin-bottom:4%;
+	float:left;
+	width:8%;
+	height:80px;
+	background-color: white;
+	border: 1px solid #bdbdbd;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 10px #bdbdbd;
+	-webkit-box-shadow: 0 0 10px #bdbdbd;
+	box-shadow: 0 0 10px #bdbdbd;
+    box-sizing:border-box;
+}
+
+.serviceBox:first-child { margin-left: 4% }
+
+.navigation
+{
+    float:left;
+	width:10%;
+	height:30px;
+    border: solid 1px #000;
+    position: relative;
+    text-align: center;
+    cursor:pointer;
+    background-color:white;
+    box-shadow: 0 0 10px #bdbdbd;
+    box-sizing:border-box;
+
+}
+
+.ajaxProgress
+{
+    display:none;
+    text-align:center;
+    padding:20px;
+    width:300px;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }

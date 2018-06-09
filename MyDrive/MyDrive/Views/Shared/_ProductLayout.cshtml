@@ -15,11 +15,16 @@
 <body>
     <div class="menu">
         <ul>
-            <li> <a href="/Home/home">Home</a> </li>
-            <li> <a id="newFolder">New Folder</a> </li>
-            @*<li> <a href="/User/Signup?userId=@MyDrive.Security.SessionManager.User.UserID">Edit Profile</a> </li>
-             <li> <a href="/User/ChangePassword">Update Password</a> </li>*@
-            <li> <a href="/User/Logout">Logout</a> </li>
+            <li> <a style="text-decoration: none;" href="/Home/home"><b>Home</b></a> </li>
+            <li> <a style="cursor: pointer; text-decoration: none;" id="newFolder"><b>Create Folder</b></a> </li>
+            <li>
+                <label style="cursor:pointer;">
+                    <input style="display:none" type="file" id="myFile" />
+                    Upload File
+                </label>
+            </li>
+            @* <li> <a href="/User/ChangePassword">Update Password</a> </li>*@
+            <li> <a style="text-decoration: none;" href="/User/Logout"><b>Logout</b></a> </li>
         </ul>
     </div>
     <div id="overlay" class="overlay">

@@ -10,6 +10,7 @@ namespace Entities
     {
         public int id { get; set; }
         public String name { get; set; }
+        public String uniqueName { get; set; }
         public int parentFolderId { get; set; }
         public String fileExt { get; set; }
         public int fileSizeinKb { get; set; }

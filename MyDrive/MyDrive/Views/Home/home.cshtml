@@ -11,6 +11,15 @@
     function main() {
         $("#newFolder").click(saveFolder);
         loadFolders();
+        $('#myFile').bind('change', function () {
+            if (this.files[0].size / (1024 * 1024) > 8) {
+                var myFile = $("#myFile").val("");
+                alert("Select a file size of less than 8 MB");
+            }
+            else
+                saveFile();
+        });
+        //$("#uploadFile").click(saveFile);
     }
 
     function openFolder(divObj) {
@@ -18,6 +27,11 @@
         id = id.replace("folder", "");
         var parentFolderId = $("#parentFolderId").val(id);
         $('#foldersDiv *').remove();
+        var navigation = $("#navigation");
+        var name = $(divObj).html();
+        //console.log(name);
+        //console.log(navigation);
+        navigation.append("<div id=folder" + id + " class='navigation' onclick='openFolder(this);'>" + name + "</div>");
         loadFolders();
 
 
@@ -41,7 +55,7 @@
                 console.log(result);
                 var foldersDiv = $("#foldersDiv");
                 $(result).each(function () {
-                    foldersDiv.append("<div id=folder"+$(this).attr("id")+" class='folder' ondblclick='openFolder(this);'>" + $(this).attr("name") + "</div> <br>");
+                    foldersDiv.append("<div id=folder"+$(this).attr("id")+" class='folder serviceBox' ondblclick='openFolder(this);'>" + $(this).attr("name") + "</div>");
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -86,14 +100,56 @@
             }
             $.ajax(setting);
         }
-        else
-            alert("You have to enter a folder name");
+    }
+
+    function saveFile() {
+        var dataToSend = new FormData();
+        var files = $("#myFile").get(0).files;
+        console.log("save file function");
+        if (files.length > 0)
+        {
+            console.log("file.length > 0");
+            dataToSend.append("uploadedFile", files[0]);
+            console.log("uploaded file" + files[0]);
+        }
+            
+        //console.log(this.files[0].size);
+        //dataToSend.append("fileSize", this.files[0].size);
+        dataToSend.append("parentFolderId", $("#parentFolderId").val());
+        dataToSend.append("createdBy", $("#userId").val());
+        $(".ajaxProgress").show();
+        var setting = {
+            type: "POST",
+            dataType: "JSON",
+            url: basePath + "api/fileData/addNewFile",
+            data: dataToSend,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                var myFile = $("#myFile").val("");
+                $('#foldersDiv *').remove();
+                $(".ajaxProgress").hide();
+                loadFolders();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("error while adding new folder");
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        }
+        $.ajax(setting);
     }
 </script>
 
 <body>
+    <span id="navigation"></span><br /><br /><br /><br />
     <input type="hidden" id="userId" value="@Session["userId"]" />
     <input type="hidden" id="parentFolderId" value="0" />
+    @*<input type="file" id="myFile" />*@
+    <div class="ajaxProgress">
+        <h4>Please Wait...</h4>
+        <img src="~/images/ajax-loader.gif" alt="loading" />
+    </div>
     <div id="foldersDiv"></div>
 </body>
 
