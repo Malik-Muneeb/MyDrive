@@ -9,6 +9,7 @@ using System.Web.Http.Cors;
 using Entities;
 using System.IO;
 using BAL;
+using System.Net.Http.Headers;
 
 namespace Web_API.ApiControllers
 {
@@ -34,6 +35,7 @@ namespace Web_API.ApiControllers
                             fileObj.fileExt = Path.GetExtension(file.FileName);
                             fileObj.fileSizeinKb = file.ContentLength / 1024;
                             fileObj.createdBy = Convert.ToInt32(System.Web.HttpContext.Current.Request["createdBy"]);
+                            fileObj.contentType = file.ContentType;
                             var rootPath = HttpContext.Current.Server.MapPath("~/UploadedFiles");
                             var fileSavePath = System.IO.Path.Combine(rootPath, fileObj.uniqueName + fileObj.fileExt);
                             fileBA fileBAObj = new fileBA();
@@ -73,6 +75,36 @@ namespace Web_API.ApiControllers
             if (fileBAObj.deleteFile(id))
                 return true;
             return false;
+        }
+
+        [HttpPost]
+        public Object downloadFile()
+        {
+            int id = Convert.ToInt32(System.Web.HttpContext.Current.Request["id"]);
+            fileBA fileBAObj = new fileBA();
+            fileDTO fileObj = fileBAObj.getFile(id);
+            var rootPath = HttpContext.Current.Server.MapPath("~/UploadedFiles");
+            if(fileObj!=null)
+            {
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                var fileFullPath = System.IO.Path.Combine(rootPath, fileObj.uniqueName + fileObj.fileExt);
+
+                byte[] file = System.IO.File.ReadAllBytes(fileFullPath);
+                System.IO.MemoryStream ms = new System.IO.MemoryStream(file);
+
+                response.Content = new ByteArrayContent(file);
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(fileObj.contentType);
+                response.Content.Headers.ContentDisposition.FileName = fileObj.name;
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.NotFound);
+                return response;
+
+            }
         }
     }
 }

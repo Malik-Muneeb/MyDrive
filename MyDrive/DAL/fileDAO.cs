@@ -19,10 +19,10 @@ namespace BAL
                 String sqlQuery = "";
 
                 sqlQuery = String.Format(@"INSERT INTO dbo.files(name, uniquename, 
-                parentfolderid, fileext, filesizeinkb, createdby, uploadedon, isactive) 
-                VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", obj.name,
+                parentfolderid, fileext, filesizeinkb, createdby, uploadedon, contenttype, isactive) 
+                VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}',{8})", obj.name,
                 obj.uniqueName, obj.parentFolderId, obj.fileExt, obj.fileSizeinKb,
-                obj.createdBy, DateTime.Now, 1);
+                obj.createdBy, DateTime.Now, obj.contentType, 1);
 
 
                 SqlCommand command = new SqlCommand(sqlQuery, conn);
@@ -52,6 +52,7 @@ namespace BAL
                     fileObj.parentFolderId = reader.GetInt32(reader.GetOrdinal("parentfolderid"));
                     fileObj.fileExt = reader.GetString(reader.GetOrdinal("fileext"));
                     fileObj.fileSizeinKb = reader.GetInt32(reader.GetOrdinal("filesizeinkb"));
+                    fileObj.contentType = reader.GetString(reader.GetOrdinal("contenttype"));
                     fileList.Add(fileObj);
                 }
                 return fileList;
@@ -71,6 +72,29 @@ namespace BAL
                 int rowAffected = command.ExecuteNonQuery();
                 Console.WriteLine("{0} Row Affected", rowAffected);
                 return true;
+            }
+        }
+
+        public fileDTO getFile(int id)
+        {
+            String connString = @"Data Source=.\SQLEXPRESS2012; Initial Catalog=Assignment8; Integrated Security=True; Persist Security Info=True;";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                String sqlQuery = "Select * from dbo.files where id='" + id + "'and isactive='1'";
+                SqlCommand command = new SqlCommand(sqlQuery, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                fileDTO fileObj = new fileDTO();
+                if (reader.Read() == true)
+                {
+                    fileObj.id = reader.GetInt32(reader.GetOrdinal("id"));
+                    fileObj.name = reader.GetString(reader.GetOrdinal("name"));
+                    fileObj.uniqueName = reader.GetString(reader.GetOrdinal("uniquename"));
+                    fileObj.parentFolderId = reader.GetInt32(reader.GetOrdinal("parentfolderid"));
+                    fileObj.fileExt = reader.GetString(reader.GetOrdinal("fileext"));
+                    fileObj.fileSizeinKb = reader.GetInt32(reader.GetOrdinal("filesizeinkb"));
+                }
+                return fileObj;
             }
         }
     }

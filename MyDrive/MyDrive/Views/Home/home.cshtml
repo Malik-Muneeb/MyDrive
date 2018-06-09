@@ -203,7 +203,7 @@
                 console.log(result);
                 var filesDiv = $("#filesDiv");
                 $(result).each(function () {
-                    filesDiv.append("<div id=file" + $(this).attr("id") + " class='file'>" + $(this).attr("name") + "</div>");
+                    filesDiv.append("<div id=file" + $(this).attr("id") + " class='file' style='cursor:pointer;' ondblclick='downloadFile(this)'>" + $(this).attr("name") + "</div>");
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -240,6 +240,30 @@
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("error while deleting file");
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        }
+        $.ajax(setting);
+    }
+
+    function downloadFile(divObj)
+    {
+        var id = divObj.id;
+        id = id.replace("file", "");
+        var dataToSend = {
+            "id": id
+        }
+        var setting = {
+            type: "POST",
+            dataType: "JSON",
+            url: basePath + "api/fileData/downloadFile",
+            data: dataToSend,
+            success: function (result) {
+                window.open(result.url);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("error while downloading file");
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
