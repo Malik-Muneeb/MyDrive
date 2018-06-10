@@ -31,10 +31,10 @@ namespace BAL
             return false;
         }
 
-        public fileDTO getFile(int id)
+        public fileDTO getFile(String uniqueName)
         {
             fileDAO fileObjDAO = new fileDAO();
-            return fileObjDAO.getFile(id);
+            return fileObjDAO.getFile(uniqueName);
         }
     }
 }

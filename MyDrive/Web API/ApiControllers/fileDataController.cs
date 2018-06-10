@@ -77,12 +77,11 @@ namespace Web_API.ApiControllers
             return false;
         }
 
-        [HttpPost]
-        public Object downloadFile()
+        [HttpGet]
+        public HttpResponseMessage downloadFile(String uniqueName)
         {
-            int id = Convert.ToInt32(System.Web.HttpContext.Current.Request["id"]);
             fileBA fileBAObj = new fileBA();
-            fileDTO fileObj = fileBAObj.getFile(id);
+            fileDTO fileObj = fileBAObj.getFile(uniqueName);
             var rootPath = HttpContext.Current.Server.MapPath("~/UploadedFiles");
             if(fileObj!=null)
             {
