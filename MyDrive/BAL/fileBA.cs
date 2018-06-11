@@ -36,5 +36,12 @@ namespace BAL
             fileDAO fileObjDAO = new fileDAO();
             return fileObjDAO.getFile(uniqueName);
         }
+
+        public List<fileDTO> getAllFilesById(int parentFolderId)
+        {
+            fileDAO fileObjDAO = new fileDAO();
+            return fileObjDAO.getAllfilesById(parentFolderId);
+        }
+
     }
 }

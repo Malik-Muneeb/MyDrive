@@ -17,7 +17,6 @@ namespace Entities
         public int createdBy { get; set; }
         public DateTime uploadedOn { get; set; }
         public bool isActive { get; set; }
-
         public String contentType { get; set; }
     }
 }

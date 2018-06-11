@@ -10,6 +10,8 @@ using Entities;
 using System.IO;
 using BAL;
 using System.Net.Http.Headers;
+using Microsoft.WindowsAPICodePack.Shell;
+using System.Drawing;
 
 namespace Web_API.ApiControllers
 {
@@ -103,6 +105,44 @@ namespace Web_API.ApiControllers
                 HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.NotFound);
                 return response;
 
+            }
+        }
+
+        [HttpGet]
+        public Object getThumbnail(string uniqueName)
+        {
+            fileBA fileBAObj = new fileBA();
+            fileDTO fileObj = fileBAObj.getFile(uniqueName);
+            var rootPath = HttpContext.Current.Server.MapPath("~/UploadedFiles");
+            var fileFullPath = System.IO.Path.Combine(rootPath, fileObj.uniqueName + fileObj.fileExt);
+
+            ShellFile shellFile = ShellFile.FromFilePath(fileFullPath);
+            Bitmap shellThumb = shellFile.Thumbnail.MediumBitmap;
+
+            if (fileObj != null)
+            {
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                byte[] file = ImageToBytes(shellThumb);
+                MemoryStream ms = new MemoryStream(file);
+                response.Content = new ByteArrayContent(file);
+                response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileObj.contentType);
+                response.Content.Headers.ContentDisposition.FileName = fileObj.name;
+                return response;
+            }
+            else
+            {
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.NotFound);
+                return response;
+            }
+
+        }
+        private byte[] ImageToBytes(Image img)
+        {
+            using (var stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
             }
         }
     }

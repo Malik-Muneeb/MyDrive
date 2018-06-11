@@ -32,6 +32,18 @@ namespace BAL
             return false;
         }
 
+        public folderDTO getFolder(folderDTO obj)
+        {
+            folderDAO folderObjDAO = new folderDAO();
+            return folderObjDAO.getFolder(obj);
+        }
+
+        public folderDTO getFolderById(int id)
+        {
+            folderDAO folderObjDAO = new folderDAO();
+            return folderObjDAO.getFolderById(id);
+        }
+
     }
 }
 
