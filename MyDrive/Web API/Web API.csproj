@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\fileDataController.cs" />
+    <Compile Include="ApiControllers\fileFolderDataController.cs" />
     <Compile Include="ApiControllers\folderDataController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

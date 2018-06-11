@@ -37,6 +37,8 @@
                     break;
             }
         });
+
+        $("#downloadMeta").click(downloadMeta);
     }
 
     function saveFolder() {
@@ -272,7 +274,7 @@
         var setting = {
             type: "POST",
             dataType: "JSON",
-            url: basePath + "api/folderData/getMetaData",
+            url: basePath + "api/fileFolderData/getMetaData",
             data: dataToSend,
             success: function (result) {
                 console.log(result);
@@ -287,7 +289,11 @@
         return false;
     }
 
-
+    function downloadMeta()
+    {
+        var url = basePath + "api/fileFolderData/downloadMeta";
+        window.open(url);
+    }
 </script>
 
 <body>
