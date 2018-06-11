@@ -91,6 +91,7 @@ namespace Web_API.ApiControllers
                 }
                 document.Add(new Paragraph(""));
             }
+            document.Add(new Paragraph(""));
             document.Close();
             return;
         }
