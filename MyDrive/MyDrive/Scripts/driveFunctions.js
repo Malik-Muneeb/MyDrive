@@ -84,6 +84,8 @@ function loadFolders() {
             //console.log(result);
             var foldersDiv = $("#foldersDiv");
             $(result).each(function () {
+                $("div").css("text-decoration", "none");
+                $("div").css("color", "black");
                 foldersDiv.append("<div id=folder" + $(this).attr("id") + " class='folder serviceBox' ondblclick='openFolder(this);'>" + $(this).attr("name") + "</div>");
             });
         },
@@ -112,7 +114,7 @@ function openFolder(divObj) {
     navigation.append("<div id=folder" + id + " class='navigation' onclick='openFolder(this);'>" + name + "</div>");
     loadFolders();
     loadFiles();
-    getMetaData();
+    getMetaData();    
 }
 
 function deleteFolder(divObj) {
@@ -284,3 +286,20 @@ function downloadMeta() {
     var url = basePath + "api/fileFolderData/downloadMeta";
     window.open(url);
 }
+
+$("input[type='search']").keyup(function (e) {
+    var code = e.keyCode || e.which;
+    //alert(code);
+    if (code == 13) {     //for "go" key
+        //alert("pressed");
+        var string = $(this).val();
+        //alert(string);
+        $("div").css("text-decoration", "none");
+        $("div").css("color", "black");
+        $("div:contains(" + string + ")").css("text-decoration", "underline");
+        $("div:contains(" + string + ")").css("color", "red");
+        $(this).trigger("keyup");
+    }
+    else
+        return 1;
+});
