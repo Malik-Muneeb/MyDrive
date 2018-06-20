@@ -1,0 +1,1 @@
+Create database named as assignment8. then execute script.sql
